@@ -74,12 +74,13 @@ az devops service-endpoint azurerm create `
 # store path for automation
 # admin:repo_hook, repo, user
 $githubPAT = 'XXX'
+$githubPAT = Get-Content -Path "secret-github-pat.txt"
 $env:AZURE_DEVOPS_EXT_GITHUB_PAT=$githubPAT
 
 # connect github
 az devops service-endpoint github create `
     --github-url https://github.com/tboeker `
-    --name tboeker `
+    --name github-tboeker `
     --organization $org `
     --project $project
 
