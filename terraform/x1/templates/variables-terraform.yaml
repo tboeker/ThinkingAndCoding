@@ -1,5 +1,7 @@
 
 variables:
+  - name: BACKEND_SERVICE_CONNECTION
+    value: az-tb-thinking-and-coding-mvd-msdn
   - name: BACKEND_RESOURCE_GROUP_NAME
     value: rg-terraform
   - name: BACKEND_STORAGE_ACCOUNT_NAME
