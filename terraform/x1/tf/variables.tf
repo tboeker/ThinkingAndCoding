@@ -1,3 +1,8 @@
+variable "environmentName" {
+  type = string
+  default = "DevRoot"
+}
+
 variable "location" {
   type        = string
   default     = "westeurope"
@@ -6,7 +11,7 @@ variable "location" {
 
 variable "resource_prefix" {
   type = string
-  default = "tb1"
+  default = "tb2"
 }
 
 variable "rgname" {
@@ -26,6 +31,12 @@ variable "kvname" {
   type        = string
   default     = "mykv"
   description = "the azure keyvault name"
+}
+
+variable "devgroupid" {
+  type        = string
+  default     = "a11cdfb2-0654-472b-a1e3-55c4748a1f01"
+  description = "the developer group id"
 }
 
 

@@ -2,5 +2,5 @@
 
 variables:
   EnvironmentName: RootDev
-  BACKEND_CONTAINER_NAME: root-dev1
+  BACKEND_STORAGE_CONTAINER_NAME: root-dev1
   
