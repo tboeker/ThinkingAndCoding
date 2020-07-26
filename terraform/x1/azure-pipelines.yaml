@@ -11,7 +11,6 @@ trigger:
     - terraform/x1/*
 
 variables:
-  # - template: templates/variables.yaml
   - name: System.Debug
     value: false
   
