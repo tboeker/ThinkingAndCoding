@@ -1,4 +1,4 @@
-variable "ENVIRONMENTNAME" {
+variable "ENVIRONMENT_NAME" {
   type = string
   default = "DevRoot"
 }
