@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "resg" {
-  name     = "terraform-group"
+  name     = var.rgname
   location = var.location
   tags     = var.tags
 }

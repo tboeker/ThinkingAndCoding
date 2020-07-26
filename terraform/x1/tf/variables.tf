@@ -4,6 +4,13 @@ variable "location" {
   description = "Specify a location see: az account list-locations -o table"
 }
 
+variable "rgname" {
+  type        = string
+  default     = "terraform-group"
+  description = "the resource group"
+
+}
+
 variable "tags" {
   type        = map
   description = "A list of tags associated to all resources"
