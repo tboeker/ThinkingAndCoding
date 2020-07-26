@@ -20,7 +20,7 @@ resource "azurerm_container_registry" "acr" {
 data "azurerm_client_config" "current" {
 }
 
-resource "azurerm_key_vault" "kv" {
+resource "azurerm_key_vault" "keyvault" {
   name                = "${var.resource_prefix}_${var.kvname}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -43,6 +43,15 @@ resource "azurerm_key_vault" "kv" {
       "delete",
     ]
   }
+
+  tags     = var.tags
+}
+
+
+resource "azurerm_key_vault_secret" "acr_user" {
+  name         = "ACRUser"
+  value        = "szechuan"
+  key_vault_id = azurerm_key_vault.keyvault.id
 
   tags     = var.tags
 }
