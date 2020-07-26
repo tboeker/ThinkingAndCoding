@@ -11,13 +11,13 @@ variable "resource_prefix" {
 
 variable "rgname" {
   type        = string
-  default     = "{var.resource_prefix}_rg_my1"
+  default     = "${var.resource_prefix}_rg_my1"
   description = "the resource group"
 }
 
 variable "acrname" {
   type        = string
-  default     = "{var.resource_prefix}myacr1"
+  default     = "${var.resource_prefix}myacr1"
   description = "the azure container registry name"
 }
 
