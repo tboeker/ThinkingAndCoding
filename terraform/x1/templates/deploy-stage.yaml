@@ -30,7 +30,7 @@ stages:
 
         - task: DownloadPipelineArtifact@2
           inputs:
-            artifact: scripts
+            artifact: drop
 
         - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
 
