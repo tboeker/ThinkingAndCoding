@@ -1,4 +1,4 @@
-variable "environmentName" {
+variable "ENVIRONMENTNAME" {
   type = string
   default = "DevRoot"
 }
@@ -9,7 +9,7 @@ variable "location" {
   description = "Specify a location see: az account list-locations -o table"
 }
 
-variable "resource_prefix" {
+variable "RESOURCE_PREFIX" {
   type = string
   default = "tb2"
 }

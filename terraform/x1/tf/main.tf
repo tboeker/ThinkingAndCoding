@@ -3,13 +3,13 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resource_prefix}_${var.rgname}"
+  name     = "${var.RESOURCE_PREFIX}_${var.rgname}"
   location = var.location
   tags     = var.tags
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                     = "${var.resource_prefix}${var.acrname}"
+  name                     = "${var.RESOURCE_PREFIX}${var.acrname}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   sku                      = "Premium"
@@ -21,7 +21,7 @@ data "azurerm_client_config" "current" {
 }
 
 resource "azurerm_key_vault" "keyvault" {
-  name                = "${var.resource_prefix}${var.kvname}"
+  name                = "${var.RESOURCE_PREFIX}${var.kvname}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
@@ -88,7 +88,7 @@ resource "azurerm_key_vault_secret" "keyvault_acrpassword" {
   name         = "ACRPassword"
   value        = azurerm_container_registry.acr.admin_password
   key_vault_id = azurerm_key_vault.keyvault.id
-  
+
   depends_on = [
     azurerm_key_vault_access_policy.keyvault_default_policy
   ]
