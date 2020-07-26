@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<p>Environment: @ViewBag.EnvironmentName</p>
+<p>Application: @ViewBag.ApplicationName</p>
+<p>Version: @ViewBag.Version</p>
+<p>ApiPathBase: @ViewBag.ApiPathBase</p>
+
+<h2>Links</h2>
+
+@* ReSharper disable once Html.PathError *@
+<p><a href="~/swagger">Swagger</a></p>
+@* ReSharper disable once Html.PathError *@
+<p><a href="~/healthz">Healthz Data</a></p>

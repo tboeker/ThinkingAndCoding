@@ -1,0 +1,7 @@
+<Project>
+
+  <PropertyGroup>
+    <ParentBuildProps>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))</ParentBuildProps>
+  </PropertyGroup>
+
+</Project>

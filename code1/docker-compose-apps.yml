@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+
+  home:
+    image: tboeker/code1-home
+    ports:
+      - 8400:80
+
+  health-ui:
+    image: xabarilcoding/healthchecksui
+    ports:
+      - 8401:80
+    env_file:
+      - ./.env
+    environment:
+      - ui_path=/
+      - HealthChecksUI:HealthChecks:0:Name=proj1
+      - HealthChecksUI:HealthChecks:0:Uri=http://proj1/healthz
+      - HealthChecksUI:HealthChecks:1:Name=proj2
+      - HealthChecksUI:HealthChecks:1:Uri=http://proj2/healthz
+
+  hello:
+    image: tboeker/code1-hello
+    ports:
+      - 8402:80
+
+  swagger-ui:
+    image: tboeker/code1-swagger-ui
+    ports:
+      - 8403:80
+    env_file:
+      - ./.env
+
+  proj1:
+    image: tboeker/code1-proj1
+    ports:
+      - 8411:80
+
+  proj2:
+    image: tboeker/code1-proj2
+    ports:
+      - 8412:80
+    environment:
+      - EventStore:IpEndPoint=eventstore
+      - MongoDb:Server=mongodb
+
+# networks:
+#   default:
+#     external:
+#       name: host

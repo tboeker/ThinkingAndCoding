@@ -1,0 +1,11 @@
+{{- if .Values.install.certmanager -}}
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  labels:
+    cert-manager.io/disable-validation: 'true'
+    {{- include "my-setup.labels" . | nindent 4 }}
+
+{{- end -}}    

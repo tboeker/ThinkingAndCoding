@@ -1,0 +1,28 @@
+{{- if .Values.install.dashboard -}}
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+  labels:
+    {{- include "my-setup.labels" . | nindent 4 }}
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+  labels:
+    {{- include "my-setup.labels" . | nindent 4 }}      
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+{{- end -}}  

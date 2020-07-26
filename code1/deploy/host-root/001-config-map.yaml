@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: code1-config
+  namespace: code1
+data:
+  MongoDb__Server: mongodb.mongodb1.svc.cluster.local
+  EventStore__IpEndPoint: eventstore.eventstore1.svc.cluster.local

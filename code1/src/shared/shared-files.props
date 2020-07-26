@@ -1,0 +1,34 @@
+<Project>
+
+  <ItemGroup>
+        <Compile Include="..\shared\Swagger\SummaryFromOperationFilter.cs">
+            <Link>shared\Swagger\SummaryFromOperationFilter.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\Swagger\RemoveAllOffSchemaFilter.cs">
+            <Link>shared\Swagger\RemoveAllOffSchemaFilter.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\Swagger\FileBodyOperationFilter.cs">
+            <Link>shared\Swagger\FileBodyOperationFilter.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\Swagger\MySwaggerDoc.cs">
+            <Link>shared\Swagger\MySwaggerDoc.cs</Link>
+        </Compile>
+         <Compile Include="..\shared\Swagger\SwaggerServiceCollectionExtensions.cs">
+            <Link>shared\swagger\SwaggeerServiceCollectionExtensions.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\Swagger\UseSwaggerExtensions.cs">
+            <Link>shared\Swagger\UseSwaggerExtensions.cs</Link>
+        </Compile>
+
+        <Compile Include="..\shared\HealthChecks\HealthChecksServiceCollectionExtensions.cs">
+            <Link>shared\HealthChecks\HealthChecksServiceCollectionExtensions.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\HealthChecks\HealthCheckReponseWriter.cs">
+            <Link>shared\HealthChecks\HealthCheckReponseWriter.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\StartupExtensions.cs">
+            <Link>shared\StartupExtensions.cs</Link>
+        </Compile>
+    </ItemGroup>
+
+</Project>

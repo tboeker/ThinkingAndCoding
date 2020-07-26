@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+
+  health-ui:
+    image: xabarilcoding/healthchecksui
+    ports:
+      - 8401:80
+    env_file:
+      - ./.env
+    environment:
+      - ui_path=/
+      - HealthChecksUI:HealthChecks:0:Name=proj1
+      - HealthChecksUI:HealthChecks:0:Uri=http://code1:8411/healthz
+      - HealthChecksUI:HealthChecks:1:Name=proj2
+      - HealthChecksUI:HealthChecks:1:Uri=http://code1:8412/healthz

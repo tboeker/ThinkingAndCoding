@@ -1,0 +1,6 @@
+# File: templates/variables-shared-dev.yml
+
+variables:
+  EnvironmentName: RootDev
+  BACKEND_CONTAINER_NAME: root-dev
+  

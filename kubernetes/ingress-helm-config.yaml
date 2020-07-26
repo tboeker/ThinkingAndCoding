@@ -1,0 +1,23 @@
+controller:
+  replicaCount: 2
+  nodeSelector: 
+    'beta.kubernetes.io/os': linux 
+    
+  # service:
+  #       # loadBalancerIP: "{{ $publicIp }}"
+  #     annotations:
+  #       'service.beta.kubernetes.io/azure-dns-label-name': orga-app-api-tb-app1
+  
+  config:
+    proxy-buffer-size: "128k"
+    proxy-buffers: "4 256k"
+    proxy-busy-buffers-size: "256k"
+    client-header-buffer-size: "64k"
+    http2-max-field-size: "16k"
+    http2-max-header-size: "128k"
+    large-client-header-buffers: "8 64k"
+
+defaultBackend:
+  nodeSelector: 
+    'beta.kubernetes.io/os': linux 
+  

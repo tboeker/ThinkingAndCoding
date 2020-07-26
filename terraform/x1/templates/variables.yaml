@@ -1,0 +1,7 @@
+
+variables:
+  - group: mvd-msdn-terraform
+  # - group: mvd-msdn-arm
+  - name: ARM_SERVICE_CONNECTION
+    value: az-tb-thinking-and-coding-terraform-mvd-msdn
+

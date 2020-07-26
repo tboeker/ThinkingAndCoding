@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.EventStore" />
+        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
+        <PackageReference Include="EventStore.Client" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
+        <PackageReference Include="MongoDB.Driver" />
+        <PackageReference Include="Newtonsoft.Json" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+{{- $path := .Values.basePath -}}
+
+================================================================
+
+Code1 Application installed !!!!
+
+Release:
+-----
+Name: {{ .Release.Name }}
+Namespace: {{ .Release.Namespace }}
+Revision: {{ .Release.Revision }}
+-----
+
+Chart:
+-----
+Name: {{ .Chart.Name }}
+Version : {{ .Chart.Version  }}
+AppVersion : {{ .Chart.AppVersion  }}
+-----
+
+Configuration Infos:
+-----
+BasePath: {{ .Values.basePath  }}
+Home URL:  http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.host }}/{{ if .Values.basePath }}{{ .Values.basePath }}/{{ end}}home
+-----
+
+================================================================

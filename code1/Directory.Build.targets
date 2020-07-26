@@ -1,0 +1,67 @@
+<Project>
+
+    <PropertyGroup>
+        <FrameworkVersion>3.1.5</FrameworkVersion>
+        <ExtensionsVersion>3.1.1</ExtensionsVersion>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+
+        <!--build related-->
+        <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="All"/>
+        <PackageReference Update="SimpleExec" Version="6.2.0"/>
+        <PackageReference Update="Bullseye" Version="3.3.0"/>
+        <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+        <PackageReference Update="System.CommandLine.DragonFruit" Version="0.3.0-alpha.20303.1" />
+        
+        <!--tests -->
+        <PackageReference Update="FluentAssertions" Version="5.10.2"/>
+        <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.2.0"/>
+        <PackageReference Update="xunit" Version="2.4.1"/>
+        <PackageReference Update="xunit.runner.visualstudio" Version="2.4.1" PrivateAssets="All"/>
+
+        <!--our stuff -->
+
+        <!--microsoft extensions -->
+        <PackageReference Update="Microsoft.Extensions.Caching.Memory" Version="$(ExtensionsVersion)"/>
+        <PackageReference Update="Microsoft.Extensions.Http" Version="$(ExtensionsVersion)"/>
+        <PackageReference Update="Microsoft.Extensions.Http.Polly" Version="$(ExtensionsVersion)"/>
+        <PackageReference Update="Microsoft.Extensions.Logging" Version="$(ExtensionsVersion)"/>
+        <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="$(ExtensionsVersion)"/>
+        <PackageReference Update="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(ExtensionsVersion)"/>
+
+        <PackageReference Update="Microsoft.Extensions.Diagnostics.HealthChecks" Version="3.1.5"/>
+
+        <!--health check -->
+        <PackageReference Update="AspNetCore.HealthChecks.EventStore" Version="3.1.1"/>
+        <PackageReference Update="AspNetCore.HealthChecks.MongoDb" Version="3.1.2"/>
+        <PackageReference Update="AspNetCore.HealthChecks.UI.Client" Version="3.1.1"/>
+
+        <!--misc -->
+        <PackageReference Update="Newtonsoft.Json" Version="12.0.3"/>
+        <PackageReference Update="Swashbuckle.AspNetCore" Version="5.5.1"/>
+        <PackageReference Update="Swashbuckle.AspNetCore.Newtonsoft" Version="5.5.1"/>
+        <PackageReference Update="Swashbuckle.AspNetCore.Annotations" Version="5.5.1"/>
+        <PackageReference Update="Swashbuckle.AspNetCore.Filters" Version="5.1.2"/>
+        <PackageReference Update="MongoDB.Driver" Version="2.10.4"/>
+        <PackageReference Update="EventStore.Client" Version="5.0.8"/>
+
+        <!--microsoft asp.net core -->
+        <PackageReference Update="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="$(FrameworkVersion)"/>
+        <PackageReference Update="Microsoft.AspNetCore.TestHost" Version="$(FrameworkVersion)"/>
+        <PackageReference Update="Microsoft.AspNetCore.Identity" Version="$(FrameworkVersion)"/>
+        <PackageReference Update="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(FrameworkVersion)"/>
+        <PackageReference Update="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(FrameworkVersion)"/>
+        <PackageReference Update="Microsoft.AspNetCore.Authentication.Certificate" Version="$(FrameworkVersion)"/>
+
+
+    </ItemGroup>
+
+    <Target Name="SetAssemblyVersion" AfterTargets="MinVer">
+        <PropertyGroup>
+            <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).0</AssemblyVersion>
+        </PropertyGroup>
+    </Target>
+
+</Project>

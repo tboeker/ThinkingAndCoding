@@ -1,0 +1,7 @@
+
+variables:
+  - name: BACKEND_RESOURCE_GROUP_NAME
+    value: rg-terraform
+  - name: BACKEND_STORAGE_ACCOUNT_NAME
+    value: terraformmvdmsdn
+  

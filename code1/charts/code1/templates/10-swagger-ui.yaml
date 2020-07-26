@@ -1,0 +1,108 @@
+{{- $app:= "swagger-ui" -}}
+{{- $fullname := printf "%s-%s" (include "code1.fullname" .) ($app) -}}
+{{- $image := printf "tboeker/code1-%s:%s" ($app) (.Chart.AppVersion) -}}
+{{- $url := printf "%s%s" (include "code1.basePathPostSlash" .) ("swagger") -}}
+{{- $path := printf "%s/%s" (include "code1.basePathPreSlash" .) ("swagger") -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+data:
+  API_PATH_BASE: {{ $url }}
+  SwaggerDocs__0__Name: proj1-test1
+  SwaggerDocs__0__Url: {{ include "code1.basePathPreSlash" . }}/proj1/swagger/proj1-test1.json
+  SwaggerDocs__1__Name: proj1-test2
+  SwaggerDocs__1__Url: {{ include "code1.basePathPreSlash" . }}/proj1/swagger/proj1-test2.json
+  SwaggerDocs__2__Name: proj1-lifetime
+  SwaggerDocs__2__Url: {{ include "code1.basePathPreSlash" . }}/proj1/swagger/proj1-lifetime.json
+  SwaggerDocs__3__Name: proj2
+  SwaggerDocs__3__Url: {{ include "code1.basePathPreSlash" . }}/proj2/swagger/proj2.json
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "code1.selectorLabels" . | nindent 6 }}
+      app: {{ $app }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        {{- include "code1.selectorLabels" . | nindent 8 }}
+        app: {{ $app }}
+    spec:
+      containers:
+      - name: {{ $fullname }}
+        image: {{ $image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: {{ include "code1.fullname" . }}
+        - configMapRef:
+            name: {{ $fullname }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+  selector:
+    {{- include "code1.selectorLabels" . | nindent 4 }}
+    app: {{ $app }}
+
+---
+
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}    
+    # nginx.ingress.kubernetes.io/rewrite-target: '/'
+  {{- end }}  
+spec:
+  {{- if .Values.ingress.tls }}
+  tls:
+  - hosts:
+    - {{ .Values.host | quote }}
+    secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.host | quote }}
+      http:
+        paths:          
+          - path: {{ $path }}
+            backend:
+              serviceName: {{ $fullname }}
+              servicePort: http            
+{{- end }}  

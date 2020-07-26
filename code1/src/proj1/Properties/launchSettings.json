@@ -1,0 +1,24 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "proj1": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "",
+      "applicationUrl": "http://localhost:8411",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "proj1-pathbase": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "proj1",
+      "applicationUrl": "http://localhost:8411",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "API_PATH_BASE": "proj1"
+      }
+    }
+  }
+}

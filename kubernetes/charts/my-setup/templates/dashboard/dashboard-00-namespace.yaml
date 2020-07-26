@@ -1,0 +1,8 @@
+{{- if .Values.install.dashboard -}}
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Release.Namespace }} # kubernetes-dashboard
+ 
+{{- end -}}  

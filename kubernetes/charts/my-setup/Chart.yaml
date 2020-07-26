@@ -1,0 +1,18 @@
+apiVersion: v2
+name: my-setup
+description: my cluster setup
+type: application
+
+version: 0.1.0
+# appVersion: 1.16.0
+
+dependencies:
+- name: kubernetes-dashboard
+  condition: install.dashboard
+  version: 2.2.0
+  repository: https://kubernetes.github.io/dashboard/
+  
+- name: cert-manager
+  condition: install.certmanager
+  version: v0.15.2
+  repository: https://charts.jetstack.io

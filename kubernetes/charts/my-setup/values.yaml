@@ -1,0 +1,11 @@
+
+install:
+  dashboard: false
+  certmanager: false
+
+kubernetes-dashboard:
+  fullnameOverride: 'kubernetes-dashboard'
+  rbac:
+    clusterReadOnlyRole: true
+
+certmanager: {}

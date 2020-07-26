@@ -1,0 +1,154 @@
+{{- $app:= "health-ui" -}}
+{{- $fullname := printf "%s-%s" (include "code1.fullname" .) ($app) -}}
+{{- $image := "xabarilcoding/healthchecksui" -}}
+{{- $url := printf "%s%s" (include "code1.basePathPostSlash" .) ("health") -}}
+{{- $path := printf "%s/%s" (include "code1.basePathPreSlash" .) ("health") -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+data:
+  # API_PATH_BASE: {{ $url }}
+  ui_path: {{ $path }}
+  ui_api_path: {{ $path }}/healthchecks-api
+  ui_webhooks_path: {{ $path }}/healthchecks-webhooks
+  ui_resources_path: {{ $path }}/ui/resources
+  ui_no_relative_paths: 'true'
+  # HealthChecksUI__HealthChecks__0__Name: proj1
+  # HealthChecksUI__HealthChecks__0__Uri: http://{{ include "code1.fullname" . }}-proj1/healthz
+  # HealthChecksUI__HealthChecks__1__Name: proj2
+  # HealthChecksUI__HealthChecks__1__Uri: http://{{ include "code1.fullname" . }}-proj2/healthz
+  HealthChecksUI__KubernetesDiscoveryService__Enabled: 'true'
+  HealthChecksUI__KubernetesDiscoveryService__HealthPath: healthz
+  HealthChecksUI__KubernetesDiscoveryService__ServicesLabel: HealthChecks
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "code1.selectorLabels" . | nindent 6 }}
+      app: {{ $app }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        {{- include "code1.selectorLabels" . | nindent 8 }}
+        app: {{ $app }}
+    spec:
+      containers:
+      - name: {{ $fullname }}
+        image: {{ $image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: {{ include "code1.fullname" . }}
+        - configMapRef:
+            name: {{ $fullname }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+  selector:
+    {{- include "code1.selectorLabels" . | nindent 4 }}
+    app: {{ $app }}
+
+---
+
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "code1.labels" . | nindent 4 }}
+    app: {{ $app }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}    
+    # nginx.ingress.kubernetes.io/rewrite-target: '/'
+  {{- end }}  
+spec:
+  {{- if .Values.ingress.tls }}
+  tls:
+  - hosts:
+    - {{ .Values.host | quote }}
+    secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.host | quote }}
+      http:
+        paths:          
+          - path: {{ $path }}
+            backend:
+              serviceName: {{ $fullname }}
+              servicePort: http            
+{{- end }}  
+
+--- 
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: healthchecksui
+rules:
+- apiGroups: [""]
+  resources: ["services" , "pods"]
+  verbs: ["list", "get", "watch"]
+
+---  
+
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: RoleBinding
+# metadata:
+#   name: healthchecksui  
+# subjects:
+# - kind: ServiceAccount
+#   name: default
+#   namespace: {{ .Release.Namespace }}
+#   # apiGroup: ""
+# roleRef:
+#   kind: Role
+#   name: healthchecksui
+#   apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: healthchecksui-admin-user
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+  # cluster-admin

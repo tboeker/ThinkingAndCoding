@@ -1,0 +1,28 @@
+basePath: code1
+host: localhost
+
+mongoDb:
+  server: mongodb.mongodb1.svc.cluster.local
+eventStore:
+  ipEndpoint: eventstore.eventstore1.svc.cluster.local
+
+proj1:
+  delaySeconds: 30
+
+# imagePullPolicy: Never  # only use local images
+imagePullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  tls:
+    secretName: tls-secret
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: letsencrypt
+      cert-manager.io/acme-challenge-type: http01
+  #    hosts:
+  #      - chart-example.local

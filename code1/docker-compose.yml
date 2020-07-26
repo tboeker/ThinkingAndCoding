@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  mongodb:
+    image: mongo:4
+    ports:
+      - 27017:27017
+
+  seq:
+    image: datalust/seq:5
+    ports:
+      - 5352:80
+      - 5341:5341
+    environment:
+      - ACCEPT_EULA=Y
+
+  eventstore:
+    image: eventstore/eventstore:release-5.0.8
+    ports:
+      - 2113:2113
+      - 1113:1113
+    environment:
+      - EVENTSTORE_STATS_PERIOD_SEC=120
+      - EVENTSTORE_RUN_PROJECTIONS=ALL
+      - EVENTSTORE_DEV=true
+      # - EVENTSTORE_EXT_IP=192.168.0.130
+      - EVENTSTORE_MEM_DB=true
+      - EVENTSTORE_DB=/data
+      - EVENTSTORE_LOG=/logs
+      - EVENTSTORE_EXT_TCP_HEARTBEAT_TIMEOUT=60000
+      - EVENTSTORE_EXT_TCP_HEARTBEAT_INTERVAL=10000

@@ -1,0 +1,7 @@
+RunProjections: all
+StatsPeriodSec: 120
+DisableHTTPCaching: false
+ExtIp: 192.168.0.130
+IntIp: 192.168.0.130
+ExtTcpHeartbeatTimeout: 5000
+ExtTcpHeartbeatInterval: 5000'

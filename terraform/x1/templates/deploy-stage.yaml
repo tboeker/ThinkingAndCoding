@@ -1,0 +1,66 @@
+parameters:
+  VariablesFile1: 'variables-root-dev.yaml'
+  VariablesFile2: 'variables.yaml'
+  VariablesFile3: 'variables-terraform.yaml'
+
+  StageCondition: succeeded()
+  StageName: 'Stage1'
+
+stages:
+  - stage: ${{ parameters.StageName }}
+    condition: ${{ parameters.StageCondition }}
+
+    variables:
+
+    - template: '${{ parameters.VariablesFile1 }}'
+    - template: '${{ parameters.VariablesFile2 }}'
+    - template: '${{ parameters.VariablesFile3 }}'
+
+    displayName: ${{ variables.EnvironmentName }}
+    jobs:
+
+    - job: prepare_backend
+      pool:
+        vmImage: 'ubuntu-latest'
+      displayName: Prepare Backend Storage
+      steps:
+        - checkout: none
+
+        - task: printAllVariables@1
+
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: scripts
+
+        - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
+
+        - task: AzureCLI@2
+          name: tf_storage
+          inputs:
+            azureSubscription: '${{ variables.ARM_SERVICE_CONNECTION }}'
+            # azureSubscription: az-tb-thinking-and-coding-terraform-mvd-msdn
+            scriptType: pscore
+            workingDirectory: $(Pipeline.Workspace)/drop/scripts/
+            scriptPath: $(Pipeline.Workspace)/drop/scripts/prepare-backend-storage.ps1
+
+    - deployment: deploy
+      pool:
+        vmImage: 'ubuntu-latest'
+      displayName: Deploy Terraform
+      dependsOn: prepare_backend
+      environment: ${{ variables.EnvironmentName }}
+
+      variables:
+        BACKEND_STORAGE_ACCOUNT_KEY: $[ dependencies.prepare_backend.outputs['tf_storage.BACKEND_STORAGE_ACCOUNT_KEY'] ]
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+
+              - task: DownloadPipelineArtifact@2
+                displayName: Download Artifacts - scripts
+                inputs:
+                  artifact: scripts
+                  path: $(Pipeline.Workspace)/scripts
+             

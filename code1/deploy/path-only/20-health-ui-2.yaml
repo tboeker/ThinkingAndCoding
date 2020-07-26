@@ -1,0 +1,44 @@
+# apiVersion: "aspnetcore.ui/v1"
+# kind: HealthCheck
+# metadata:
+#   name: healthchecks-ui
+#   namespace: code1
+# spec:
+#   name: healthchecks-ui
+#   servicesLabel: HealthChecks
+#   uiPath: /code1/health2
+#   healthChecksPath: /healthz
+#   # serviceType: ClusterIP
+#   # stylesheetContent: >
+#   #   :root {    
+#   #     --primaryColor: #2a3950;
+#   #     --secondaryColor: #f4f4f4;  
+#   #     --bgMenuActive: #e1b015;
+#   #     --bgButton: #e1b015;
+#   #     --logoImageUrl: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/WoW_icon.svg/1200px-WoW_icon.svg.png');
+#   #     --bgAside: var(--primaryColor);   
+#   #   }
+#   # serviceAnnotations:
+#   #   - name: service.beta.kubernetes.io/azure-load-balancer-internal
+#   #     value: "true"
+
+# ---
+
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: health-ui-ingress-2
+#   namespace: code1
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /code1/health2
+#         backend:
+#           serviceName: healthchecks-ui-svc
+#           servicePort: httport
+
+
+
