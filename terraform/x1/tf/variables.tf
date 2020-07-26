@@ -22,6 +22,13 @@ variable "acrname" {
 }
 
 
+variable "kvname" {
+  type        = string
+  default     = "mykv"
+  description = "the azure keyvault name"
+}
+
+
 variable "tags" {
   type        = map
   description = "A list of tags associated to all resources"
