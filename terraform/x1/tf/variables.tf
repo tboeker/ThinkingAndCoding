@@ -8,8 +8,14 @@ variable "rgname" {
   type        = string
   default     = "terraform-group"
   description = "the resource group"
-
 }
+
+variable "acrname" {
+  type        = string
+  default     = "tbacr"
+  description = "the azure container registry name"
+}
+
 
 variable "tags" {
   type        = map
