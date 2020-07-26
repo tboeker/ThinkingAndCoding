@@ -2,8 +2,8 @@
 
 variables:
   EnvironmentName: RootDev
-  BACKEND_STORAGE_CONTAINER_NAME: root-dev-tb3
-  TF_VAR_RESOURCE_PREFIX: tb3
+  BACKEND_STORAGE_CONTAINER_NAME: root-dev-tb4
+  TF_VAR_RESOURCE_PREFIX: tb4
   TF_VAR_ENVIRONMENT_NAME: RootDev
 
   
