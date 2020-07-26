@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                     = "${var.resource_prefix}_${var.acrname}"
+  name                     = "${var.resource_prefix}${var.acrname}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   # sku                      = "Premium"
