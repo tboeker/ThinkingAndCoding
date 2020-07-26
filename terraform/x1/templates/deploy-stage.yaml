@@ -31,6 +31,7 @@ stages:
         - task: DownloadPipelineArtifact@2
           inputs:
             artifact: drop
+            path: $(Pipeline.Workspace)/drop
 
         - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
 
@@ -57,10 +58,10 @@ stages:
         runOnce:
           deploy:
             steps:
-
+              - task: printAllVariables@1
+              
               - task: DownloadPipelineArtifact@2
-                displayName: Download Artifacts - scripts
                 inputs:
-                  artifact: scripts
-                  path: $(Pipeline.Workspace)/scripts
+                  artifact: drop
+                  path: $(Pipeline.Workspace)/drop
              
