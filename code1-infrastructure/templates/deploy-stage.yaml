@@ -77,7 +77,7 @@ stages:
                   backendServiceArm: '${{ variables.BACKEND_SERVICE_CONNECTION }}'
                   backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
                   backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
-                  backendAzureRmContainerName: $(BACKEND_CONTAINER_NAME)
+                  backendAzureRmContainerName: $(BACKEND_STORAGE_CONTAINER_NAME)
                   backendAzureRmKey: $(BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/'${{ parameters.WorkingDirectory }}'
                   command: 'init'
@@ -89,7 +89,7 @@ stages:
                   backendServiceArm: '${{ variables.BACKEND_SERVICE_CONNECTION }}'
                   backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
                   backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
-                  backendAzureRmContainerName: $(BACKEND_CONTAINER_NAME)
+                  backendAzureRmContainerName: $(BACKEND_STORAGE_CONTAINER_NAME)
                   backendAzureRmKey: $(BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/'${{ parameters.WorkingDirectory }}'
                   command: 'apply'
