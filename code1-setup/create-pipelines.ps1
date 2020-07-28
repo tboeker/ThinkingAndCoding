@@ -9,7 +9,7 @@ az pipelines create `
     --repository $repository `
     --branch master `
     --repository-type github `
-    --yaml-path code1-infrastracture/azure-pipelines-shared.yaml `
+    --yaml-path code1-infrastructure/azure-pipelines-shared.yml `
     --organization $org `
     --project $project `
     --skip-first-run true

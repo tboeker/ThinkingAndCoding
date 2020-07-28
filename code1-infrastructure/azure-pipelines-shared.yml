@@ -12,7 +12,7 @@ trigger:
 
 variables:
   - name: System.Debug
-    value: false
+    value: true
   
 stages:
   - template: templates/init-stage.yaml
