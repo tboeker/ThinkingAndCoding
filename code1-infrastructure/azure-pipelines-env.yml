@@ -8,7 +8,7 @@ trigger:
     - dev
   paths:
     include:
-    - code1-infrastructure/terraform/shared/*
+    - code1-infrastructure/terraform/env/*
 
 variables:
   - name: System.Debug
@@ -18,20 +18,12 @@ stages:
   - template: templates/init-stage.yml
     parameters:
       SourceFolderScripts: 'code1-infrastructure/scripts'
-      SourceFolderTerraform: 'code1-infrastructure/terraform/shared'
+      SourceFolderTerraform: 'code1-infrastructure/terraform/env'
 
   - template: templates/deploy-stage.yml
     parameters:
-      StageName: 'shared_dev'
+      StageName: 'dev'
       WorkingDirectory: dev
       VariablesFile1: variables.yml
-      VariablesFile2: variables-shared-dev.yml
-      VariablesFile3: variables-terraform.yml
-
-  - template: templates/deploy-stage.yml
-    parameters:
-      StageName: 'shared_prod'
-      WorkingDirectory: prod
-      VariablesFile1: variables.yml
-      VariablesFile2: variables-shared-prod.yml
+      VariablesFile2: variables-dev.yml
       VariablesFile3: variables-terraform.yml

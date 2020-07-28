@@ -1,7 +1,7 @@
 parameters:
-  VariablesFile1: 'variables-root-dev.yaml'
-  VariablesFile2: 'variables.yaml'
-  VariablesFile3: 'variables-terraform.yaml'
+  VariablesFile1: 'variables-root-dev.yml'
+  VariablesFile2: 'variables.yml'
+  VariablesFile3: 'variables-terraform.yml'
   CommandOptions: ''
   WorkingDirectory: 'dev'
 
