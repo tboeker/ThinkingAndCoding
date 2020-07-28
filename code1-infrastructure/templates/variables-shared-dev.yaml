@@ -1,0 +1,6 @@
+# File: templates/variables-shared-dev.yml
+
+variables:
+  EnvironmentName: AppSharedDev
+  BACKEND_STORAGE_CONTAINER_NAME: tb-code1-shared-dev
+  

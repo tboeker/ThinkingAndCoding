@@ -1,0 +1,98 @@
+parameters:
+  VariablesFile1: 'variables-root-dev.yaml'
+  VariablesFile2: 'variables.yaml'
+  VariablesFile3: 'variables-terraform.yaml'
+  CommandOptions: ''
+  WorkingDirectory: 'dev'
+
+  StageCondition: succeeded()
+  StageName: 'Stage1'
+
+stages:
+  - stage: ${{ parameters.StageName }}
+    condition: ${{ parameters.StageCondition }}
+
+    variables:
+
+    - template: '${{ parameters.VariablesFile1 }}'
+    - template: '${{ parameters.VariablesFile2 }}'
+    - template: '${{ parameters.VariablesFile3 }}'
+
+    displayName: ${{ variables.EnvironmentName }}
+    jobs:
+
+    - job: prepare_backend
+      pool:
+        vmImage: 'ubuntu-latest'
+      displayName: Prepare Backend Storage
+      steps:
+        - checkout: none
+
+        - task: printAllVariables@1
+
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: drop
+            path: $(Pipeline.Workspace)/drop
+
+        - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
+
+        - task: AzureCLI@2
+          name: tf_storage
+          inputs:
+            azureSubscription: '${{ variables.ARM_SERVICE_CONNECTION }}'
+            # azureSubscription: az-tb-thinking-and-coding-terraform-mvd-msdn
+            scriptType: pscore
+            workingDirectory: $(Pipeline.Workspace)/drop/scripts/
+            scriptPath: $(Pipeline.Workspace)/drop/scripts/prepare-backend-storage.ps1
+
+    - deployment: deploy
+      pool:
+        vmImage: 'ubuntu-latest'
+      displayName: Deploy Terraform
+      dependsOn: prepare_backend
+      environment: ${{ variables.EnvironmentName }}
+
+      variables:
+        BACKEND_STORAGE_ACCOUNT_KEY: $[ dependencies.prepare_backend.outputs['tf_storage.BACKEND_STORAGE_ACCOUNT_KEY'] ]
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: printAllVariables@1
+              
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  artifact: drop
+                  path: $(Pipeline.Workspace)/drop
+
+              - task: TerraformInstaller@0
+                inputs:
+                  terraformVersion: '0.12.29'
+
+              - task: TerraformTaskV1@0
+                inputs:
+                  provider: 'azurerm'
+                  backendServiceArm: '${{ variables.BACKEND_SERVICE_CONNECTION }}'
+                  backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
+                  backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
+                  backendAzureRmContainerName: $(BACKEND_CONTAINER_NAME)
+                  backendAzureRmKey: $(BACKEND_STORAGE_ACCOUNT_KEY)
+                  workingDirectory: $(Pipeline.Workspace)/drop/tf/'${{ parameters.WorkingDirectory }}'
+                  command: 'init'
+                  commandOptions: '${{ parameters.CommandOptions }}'
+                  
+              - task: TerraformTaskV1@0
+                inputs:
+                  provider: 'azurerm'
+                  backendServiceArm: '${{ variables.BACKEND_SERVICE_CONNECTION }}'
+                  backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
+                  backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
+                  backendAzureRmContainerName: $(BACKEND_CONTAINER_NAME)
+                  backendAzureRmKey: $(BACKEND_STORAGE_ACCOUNT_KEY)
+                  workingDirectory: $(Pipeline.Workspace)/drop/tf/'${{ parameters.WorkingDirectory }}'
+                  command: 'apply'
+                  commandOptions: '${{ parameters.CommandOptions }}'
+                  environmentServiceNameAzureRM: '${{ variables.ARM_SERVICE_CONNECTION }}'
+             

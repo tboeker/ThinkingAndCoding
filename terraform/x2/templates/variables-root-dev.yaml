@@ -1,0 +1,9 @@
+# File: templates/variables-shared-dev.yml
+
+variables:
+  EnvironmentName: RootDev
+  BACKEND_STORAGE_CONTAINER_NAME: root-dev-tb4
+  TF_VAR_RESOURCE_PREFIX: tb4
+  TF_VAR_ENVIRONMENT_NAME: RootDev
+
+  

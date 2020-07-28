@@ -1,0 +1,68 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  # batch: true
+  branches:
+    include:
+    - master
+    - dev
+  paths:
+    include:
+    - terraform/x2/*
+
+variables:
+  - name: System.Debug
+    value: false
+  
+stages:
+  - template: templates/init-stage.yaml
+    parameters:
+      SourceFolder: 'terraform/x2'
+
+  - template: templates/deploy-stage.yaml
+    parameters: 
+      StageName: 'root_dev'
+      VariablesFile1: variables-root-dev.yaml
+      VariablesFile2: variables.yaml
+      VariablesFile3: variables-terraform.yaml
+
+      # VariablesGroup1: mvd-msdn-arm
+      
+  # - stage: AzureSharedResBuild
+  #   jobs:
+  #   - template: ../../templates/azure-resources-deployment/jobs-build.yml
+  #     parameters:
+  #       VariablesContents: 'variables-shared*.*'
+  #       ScriptsSourceFolder: 'azure-resources/scripts'
+
+# jobs:
+# - job: One
+#   steps:
+#   - script: echo '${{ variables.BACKEND_SERVICE_CONNECTION }}' $(BACKEND_SERVICE_CONNECTION)
+  
+#   - task: TerraformInstaller@0
+#     inputs:
+#       terraformVersion: '0.12.3'
+
+#   - task: TerraformTaskV1@0
+#     inputs:
+#       provider: 'azurerm'
+#       backendServiceArm: $(BACKEND_SERVICE_CONNECTION)
+#       backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
+#       backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
+#       backendAzureRmContainerName: $(BACKEND_CONTAINER_NAME)
+#       backendAzureRmKey: $(BACKEND_ACCOUNT_KEY)
+#       workingDirectory: $(Build.SourcesDirectory)/terraform/x1/tf
+#       command: 'init'
+      
+#   - task: TerraformTaskV1@0
+#     inputs:
+#       provider: 'azurerm'
+#       backendServiceArm: $(BACKEND_SERVICE_CONNECTION)
+#       backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
+#       backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
+#       backendAzureRmContainerName: $(BACKEND_CONTAINER_NAME)
+#       backendAzureRmKey: $(BACKEND_ACCOUNT_KEY)
+#       workingDirectory: $(Build.SourcesDirectory)/terraform/x1/tf
+#       command: 'apply'
+#       environmentServiceNameAzureRM: $(BACKEND_SERVICE_CONNECTION)

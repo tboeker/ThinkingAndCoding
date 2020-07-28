@@ -1,0 +1,6 @@
+# File: templates/variables-shared-prod.yml
+
+variables:
+  EnvironmentName: AppSharedProd
+  BACKEND_STORAGE_CONTAINER_NAME: tb-code1-shared-prod
+  

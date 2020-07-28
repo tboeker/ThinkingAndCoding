@@ -1,0 +1,37 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  # batch: true
+  branches:
+    include:
+    - master
+    - dev
+  paths:
+    include:
+    - code1-infrastructure/terraform/shared/*
+
+variables:
+  - name: System.Debug
+    value: false
+  
+stages:
+  - template: templates/init-stage.yaml
+    parameters:
+      SourceFolderScripts: 'code1-infrastructure/scripts'
+      SourceFolderTerraform: 'code1-infrastructure/terraform/shared'
+
+  - template: templates/deploy-stage.yaml
+    parameters:
+      StageName: 'shared_dev'
+      WorkingDirectory: dev
+      VariablesFile1: variables.yaml
+      VariablesFile2: variables-shared-dev.yaml
+      VariablesFile3: variables-terraform.yaml
+
+  - template: templates/deploy-stage.yaml
+    parameters:
+      StageName: 'shared_prod'
+      WorkingDirectory: prod
+      VariablesFile1: variables.yaml
+      VariablesFile2: variables-shared-prod.yaml
+      VariablesFile3: variables-terraform.yaml

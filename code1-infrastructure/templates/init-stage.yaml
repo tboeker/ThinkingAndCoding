@@ -1,0 +1,35 @@
+parameters:
+  SourceFolderScripts: ''
+  SourceFolderTerraform: ''
+  StageName: 'init'
+
+stages:
+  - stage: ${{ parameters.StageName }}
+    displayName: Init
+
+    jobs:
+    - job: init
+      pool:
+        vmImage: 'ubuntu-latest'
+      displayName: Initialize Deployment
+      steps:
+
+      # - task: printAllVariables@1
+
+      - task: CopyFiles@2
+        displayName: Copy scripts to ArtifactStagingDirectory
+        inputs:
+          sourceFolder: $(Build.SourcesDirectory)/${{ parameters.SourceFolderScripts }}
+          contents: '**/**'
+          targetFolder: $(Build.ArtifactStagingDirectory)/scripts
+
+      - task: CopyFiles@2
+        displayName: Copy tf to ArtifactStagingDirectory
+        inputs:
+          sourceFolder: $(Build.SourcesDirectory)/${{ parameters.SourceFolderTerraform }}
+          contents: '**/**/*.tf'
+          targetFolder: $(Build.ArtifactStagingDirectory)/tf
+
+      - publish: $(Build.ArtifactStagingDirectory)
+        displayName: Publish Artifacts
+        artifact: drop
