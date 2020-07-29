@@ -1,12 +1,32 @@
 parameters:
-  VariablesFile1: 'variables.yml'
-  VariablesFile2: 'variables-root-dev.yml'
-  CommandOptions: ''
-  WorkingDirectory: 'dev'
-  Env: {}
-  StageCondition: succeeded()
-  StageName: 'Stage1'
+  - name: VariablesFile1
+    type: string
+    default: 'variables.yml'
+  
+  - name: VariablesFile2
+    type: string
+    default: 'variables-root-dev.yml'
+  
+  - name: CommandOptions
+    type: string
+    default: ''
 
+  - name: WorkingDirectory
+    type: string
+    default: 'dev'
+
+  - name: StageName
+    type: string
+    default: 'Stage1'
+  
+  - name: StageCondition
+    type: object
+    default: succeeded()
+   
+  - name: Env
+    type: object
+    default: {}
+  
 stages:
   - stage: ${{ parameters.StageName }}
     condition: ${{ parameters.StageCondition }}
