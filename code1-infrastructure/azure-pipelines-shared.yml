@@ -11,8 +11,7 @@ trigger:
     - code1-infrastructure/terraform/shared/*
 
 variables:
-  - name: System.Debug
-    value: true
+  - template: templates/variables.yml
   
 stages:
   - template: templates/init-stage.yml
@@ -26,7 +25,6 @@ stages:
       WorkingDirectory: dev
       VariablesFile1: variables.yml
       VariablesFile2: variables-shared-dev.yml
-      VariablesFile3: variables-terraform.yml
 
   - template: templates/deploy-stage.yml
     parameters:
@@ -34,4 +32,3 @@ stages:
       WorkingDirectory: prod
       VariablesFile1: variables.yml
       VariablesFile2: variables-shared-prod.yml
-      VariablesFile3: variables-terraform.yml

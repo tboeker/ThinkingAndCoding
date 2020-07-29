@@ -1,7 +1,6 @@
 parameters:
-  VariablesFile1: 'variables-root-dev.yml'
-  VariablesFile2: 'variables.yml'
-  VariablesFile3: 'variables-terraform.yml'
+  VariablesFile1: 'variables.yml'
+  VariablesFile2: 'variables-root-dev.yml'
   CommandOptions: ''
   WorkingDirectory: 'dev'
 
@@ -16,7 +15,6 @@ stages:
 
     - template: '${{ parameters.VariablesFile1 }}'
     - template: '${{ parameters.VariablesFile2 }}'
-    - template: '${{ parameters.VariablesFile3 }}'
 
     displayName: ${{ variables.EnvironmentName }}
     jobs:
@@ -54,7 +52,7 @@ stages:
       environment: ${{ variables.EnvironmentName }}
 
       variables:
-        BACKEND_STORAGE_ACCOUNT_KEY: $[ dependencies.prepare_backend.outputs['tf_storage.BACKEND_STORAGE_ACCOUNT_KEY'] ]
+        TF_BACKEND_STORAGE_ACCOUNT_KEY: $[ dependencies.prepare_backend.outputs['tf_storage.BACKEND_STORAGE_ACCOUNT_KEY'] ]
 
       strategy:
         runOnce:
@@ -74,11 +72,11 @@ stages:
               - task: TerraformTaskV1@0
                 inputs:
                   provider: 'azurerm'
-                  backendServiceArm: '${{ variables.BACKEND_SERVICE_CONNECTION }}'
-                  backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
-                  backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
-                  backendAzureRmContainerName: $(BACKEND_STORAGE_CONTAINER_NAME)
-                  backendAzureRmKey: $(BACKEND_STORAGE_ACCOUNT_KEY)
+                  backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
+                  backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
+                  backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
+                  backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
+                  backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
                   command: 'init'
                   commandOptions: '${{ parameters.CommandOptions }}'
@@ -86,11 +84,11 @@ stages:
               - task: TerraformTaskV1@0
                 inputs:
                   provider: 'azurerm'
-                  backendServiceArm: '${{ variables.BACKEND_SERVICE_CONNECTION }}'
-                  backendAzureRmResourceGroupName: $(BACKEND_RESOURCE_GROUP_NAME)
-                  backendAzureRmStorageAccountName: $(BACKEND_STORAGE_ACCOUNT_NAME)
-                  backendAzureRmContainerName: $(BACKEND_STORAGE_CONTAINER_NAME)
-                  backendAzureRmKey: $(BACKEND_STORAGE_ACCOUNT_KEY)
+                  backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
+                  backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
+                  backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
+                  backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
+                  backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
                   command: 'apply'
                   commandOptions: '${{ parameters.CommandOptions }}'

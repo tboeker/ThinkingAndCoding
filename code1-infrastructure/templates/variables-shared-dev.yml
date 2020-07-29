@@ -1,6 +1,8 @@
 # File: templates/variables-shared-dev.yml
 
 variables:
-  EnvironmentName: AppSharedDev
-  BACKEND_STORAGE_CONTAINER_NAME: tb-code1-shared-dev
-  
+  EnvironmentName: AppSharedDevelopment
+  TF_BACKEND_SERVICE_CONNECTION: az-tb-thinking-and-coding-mvd-msdn
+  TF_BACKEND_RESOURCE_GROUP_NAME: rg-tb-code1-terraform
+  TF_BACKEND_STORAGE_ACCOUNT_NAME: tbcode1tfmvdmsdn
+  TF_BACKEND_STORAGE_CONTAINER_NAME: tb-code1-shared-dev

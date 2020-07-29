@@ -1,0 +1,9 @@
+# File: templates/variables-stag.yml
+
+variables:
+  EnvironmentName: Staging
+  ARM_SERVICE_CONNECTION: az-tb-thinking-and-coding-tz-msdn
+  TF_BACKEND_SERVICE_CONNECTION: az-tb-thinking-and-coding-tz-msdn
+  TF_BACKEND_RESOURCE_GROUP_NAME: rg-tb-code1-terraform
+  TF_BACKEND_STORAGE_ACCOUNT_NAME: tbcode1tftzdmsdn
+  TF_BACKEND_STORAGE_CONTAINER_NAME: tb-code1-stag

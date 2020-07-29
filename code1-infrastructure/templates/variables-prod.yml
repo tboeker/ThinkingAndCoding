@@ -1,0 +1,10 @@
+# File: templates/variables-prod.yml
+
+variables:
+  EnvironmentName: Production  
+  ARM_SERVICE_CONNECTION: az-tb-thinking-and-coding-mkb-msdn
+  TF_BACKEND_SERVICE_CONNECTION: az-tb-thinking-and-coding-mkb-msdn
+  TF_BACKEND_RESOURCE_GROUP_NAME: rg-tb-code1-terraform
+  TF_BACKEND_STORAGE_ACCOUNT_NAME: tbcode1tfmkbmsdn
+  TF_BACKEND_STORAGE_CONTAINER_NAME: tb-code1-prod
+  

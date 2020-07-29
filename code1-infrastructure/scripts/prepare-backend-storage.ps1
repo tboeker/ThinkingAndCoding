@@ -6,9 +6,9 @@ Param(
 )
 
 
-if ($env:BACKEND_RESOURCE_GROUP_NAME) {
-    $resourceGroupName = $env:BACKEND_RESOURCE_GROUP_NAME;
-    Write-Host "BACKEND_RESOURCE_GROUP_NAME from Environment"
+if ($env:TF_BACKEND_RESOURCE_GROUP_NAME) {
+    $resourceGroupName = $env:TF_BACKEND_RESOURCE_GROUP_NAME;
+    Write-Host "TF_BACKEND_RESOURCE_GROUP_NAME from Environment"
 }
 Write-Host "resourceGroupName: $resourceGroupName"
 
@@ -16,14 +16,14 @@ Write-Host "resourceGroupName: $resourceGroupName"
 Write-Host "az group create --name $resourceGroupName --location westeurope"
 az group create --name $resourceGroupName --location westeurope
 
-if ($env:BACKEND_STORAGE_ACCOUNT_NAME) {
-    $storageAccountName = $env:BACKEND_STORAGE_ACCOUNT_NAME;
-    Write-Host "BACKEND_STORAGE_ACCOUNT_NAME from Environment"
+if ($env:TF_BACKEND_STORAGE_ACCOUNT_NAME) {
+    $storageAccountName = $env:TF_BACKEND_STORAGE_ACCOUNT_NAME;
+    Write-Host "TF_BACKEND_STORAGE_ACCOUNT_NAME from Environment"
 }
 Write-Host "storageAccountName: $storageAccountName"
 
 # create storage account
-Write-Host "az storage account create --resource-group $resourceGroupName"
+Write-Host "az storage account create --resource-group $resourceGroupName --name $storageAccountName"
 az storage account create --resource-group $resourceGroupName `
     --name $storageAccountName `
     --sku Standard_LRS `
@@ -36,12 +36,12 @@ $storageAccountKey
 # create variable
 Write-Host "##vso[task.setvariable variable=BACKEND_STORAGE_ACCOUNT_KEY;isOutput=true]$storageAccountKey"
 
-if ($env:BACKEND_STORAGE_CONTAINER_NAME) {
-    $containerName = $env:BACKEND_STORAGE_CONTAINER_NAME;
-    Write-Host "BACKEND_STORAGE_CONTAINER_NAME from Environment"
+if ($env:TF_BACKEND_STORAGE_CONTAINER_NAME) {
+    $containerName = $env:TF_BACKEND_STORAGE_CONTAINER_NAME;
+    Write-Host "TF_BACKEND_STORAGE_CONTAINER_NAME from Environment"
 }
 
-Write-Host "az storage container create $containerName"
+Write-Host "az storage container create --name $containerName"
     az storage container create `
     --name $containerName `
     --account-name $storageAccountName `

@@ -1,5 +1,5 @@
 # File: templates/variables.yml
 
 variables:
-  - name: ARM_SERVICE_CONNECTION
-    value: az-tb-thinking-and-coding-mvd-msdn
+  - name: System.Debug
+    value: true

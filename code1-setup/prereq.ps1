@@ -1,4 +1,6 @@
 [string] $subscription = 'mvd-msdn'
+[string] $subscription = 'tz-msdn'
+[string] $subscription = 'mkb-msdn'
 [string] $appname = 'code1'
 [string] $prefix = 'tb-thinking-and-coding'
 
