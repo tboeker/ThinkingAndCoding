@@ -25,3 +25,5 @@ stages:
       WorkingDirectory: dev
       VariablesFile1: variables.yml
       VariablesFile2: variables-dev.yml
+      Env: 
+        TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)

@@ -1,6 +1,5 @@
 Push-Location -Path 'C:\repos\ThinkingAndCoding\code1-setup'
 
-Remove-Module .\setup-util.psm1
 Import-Module .\setup-util.psm1 -Force
 
 # login and select subscription
@@ -35,7 +34,7 @@ $account = Get-Content -Path "secret-az-$subscription-account.json" | ConvertFro
                        
 createAzureServiceEndpoint -org $org -project $project -principal $principal -account $account -prefix $prefix -subscription $subscription
 
-createDevOpsVariableGroup -org $org -project $project -principal $principal -account $account -prefix $prefix -subscription $subscription
+createDevOpsArmVariableGroup -org $org -project $project -principal $principal -account $account -prefix $prefix -subscription $subscription
 
 
 # store path for automation

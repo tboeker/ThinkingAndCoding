@@ -3,7 +3,7 @@ parameters:
   VariablesFile2: 'variables-root-dev.yml'
   CommandOptions: ''
   WorkingDirectory: 'dev'
-
+  Env: {}
   StageCondition: succeeded()
   StageName: 'Stage1'
 
@@ -80,7 +80,8 @@ stages:
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
                   command: 'init'
                   commandOptions: '${{ parameters.CommandOptions }}'
-                  
+                  env: $[ parameters['Env'] ]
+
               - task: TerraformTaskV1@0
                 inputs:
                   provider: 'azurerm'
@@ -93,4 +94,5 @@ stages:
                   command: 'apply'
                   commandOptions: '${{ parameters.CommandOptions }}'
                   environmentServiceNameAzureRM: '${{ variables.ARM_SERVICE_CONNECTION }}'
+                  env: $[ parameters['Env'] ]
              

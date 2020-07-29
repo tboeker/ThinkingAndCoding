@@ -1,9 +1,18 @@
 # File: templates/variables-dev.yml
 
 variables:
-  EnvironmentName: Development
-  ARM_SERVICE_CONNECTION: az-tb-thinking-and-coding-mvd-msdn
-  TF_BACKEND_SERVICE_CONNECTION: az-tb-thinking-and-coding-mvd-msdn
-  TF_BACKEND_RESOURCE_GROUP_NAME: rg-tb-code1-terraform
-  TF_BACKEND_STORAGE_ACCOUNT_NAME: tbcode1tfmvdmsdn
-  TF_BACKEND_STORAGE_CONTAINER_NAME: tb-code1-dev
+  - name: EnvironmentName
+    value: Development
+
+  - name: ARM_SERVICE_CONNECTION
+    value: az-tb-thinking-and-coding-mvd-msdn
+  - name: TF_BACKEND_SERVICE_CONNECTION
+    value: az-tb-thinking-and-coding-mvd-msdn
+  - name: TF_BACKEND_RESOURCE_GROUP_NAME
+    value: rg-tb-code1-terraform
+  - name: TF_BACKEND_STORAGE_ACCOUNT_NAME
+    value: tbcode1tfmvdmsdn
+  - name: TF_BACKEND_STORAGE_CONTAINER_NAME
+    value: tb-code1-dev
+  
+  - group: code1-dev
