@@ -42,7 +42,7 @@ resource "azurerm_key_vault_access_policy" "keyvault_default_developer" {
   key_vault_id = azurerm_key_vault.keyvault.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
-  object_id = var.devgroupid
+  object_id = var.dev_group_id
 
   key_permissions = [
       "create",
@@ -138,5 +138,5 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-${var.appname}-${var.envshort}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  address_space       = [ var.vnetaddressspace ]
+  address_space       = [ var.vnet_address_space ]
 }

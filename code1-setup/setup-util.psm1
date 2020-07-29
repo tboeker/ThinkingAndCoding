@@ -112,7 +112,8 @@ function createDevOpsVariableGroup() {
         --description 'Variables for Azure Resource Manager Service connection' `
         --organization $org `
         --project $project `
-        --variables "ARM_SUBSCRIPTION=$subscription"
+        --variables "ARM_SUBSCRIPTION=$subscription" `
+        --authorize true
 
     $groupId = (az pipelines variable-group list `
             --group-name $vargroupName `

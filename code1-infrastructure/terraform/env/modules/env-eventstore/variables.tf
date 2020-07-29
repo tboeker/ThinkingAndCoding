@@ -23,19 +23,36 @@ variable "envshort" {
 }
 
 
-variable "dev_group_id" {
+variable "keyvault_id" {
   type        = string
-  default     = "a11cdfb2-0654-472b-a1e3-55c4748a1f01"
-  description = "the developer group id for keyvault access"
+  default     = ""
+  description = "the id of the shared keyvault"
 }
 
 
-variable "vnet_address_space" {
+variable "vnet_id" {
   type        = string
-  default     = "10.0.0.0/16"
-  description = "the address space of the shared virtual network"
+  default     = ""
+  description = "the id of the shared virtual network"
 }
 
+variable "vnet_name" {
+  type        = string
+  default     = ""
+  description = "the name of the shared virtual network"
+}
+
+variable "vnet_resource_group_name" {
+  type        = string
+  default     = ""
+  description = "the name of the shared virtual network resource group"
+}
+
+variable "yoda_password" {
+  type        = string
+  default     = ""
+  description = "the password of the yoda admin user"
+}
 
 variable "tags" {
   type        = map
