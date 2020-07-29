@@ -2,6 +2,7 @@
 
 variables:
   EnvironmentName: AppSharedDevelopment
+  ARM_SERVICE_CONNECTION: az-tb-thinking-and-coding-mvd-msdn
   TF_BACKEND_SERVICE_CONNECTION: az-tb-thinking-and-coding-mvd-msdn
   TF_BACKEND_RESOURCE_GROUP_NAME: rg-tb-code1-terraform
   TF_BACKEND_STORAGE_ACCOUNT_NAME: tbcode1tfmvdmsdn
