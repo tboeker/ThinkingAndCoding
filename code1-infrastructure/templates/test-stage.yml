@@ -51,14 +51,23 @@ stages:
         - script: |
             echo A: $(EventStore_YodaPassword)
 
-        # geht nicht, weil das aus group kommt
-        # - script: | 
-        #     echo B: ${{ variables.EventStore_YodaPassword }}
-
         - script: |
             echo C: $(TF_VAR_EVENTSTORE_YODA_PASSWORD)
           env:
             TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)
+
+        - bash: |
+            echo A1: $EventStore_YodaPassword
+
+        - script: |
+            echo C1: $TF_VAR_EVENTSTORE_YODA_PASSWORD
+          env:
+            TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)
+
+        # geht nicht, weil das aus group kommt
+        # - script: | 
+        #     echo B: ${{ variables.EventStore_YodaPassword }}
+
 
         # - script: |
         #     echo D: ${{ variables.TF_VAR_EVENTSTORE_YODA_PASSWORD }}
