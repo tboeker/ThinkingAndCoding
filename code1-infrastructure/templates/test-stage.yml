@@ -50,7 +50,7 @@ stages:
       
         - script: echo $(TF_VAR_EVENTSTORE_YODA_PASSWORD)
           env:
-          TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword) 
+            TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword) 
             # $[ parameters['Env'] ]
 
         
