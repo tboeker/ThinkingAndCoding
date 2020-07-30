@@ -49,7 +49,7 @@ stages:
         - task: printAllVariables@1
       
         - script: echo '${{ variables.TF_VAR_EVENTSTORE_YODA_PASSWORD }}' $(TF_VAR_EVENTSTORE_YODA_PASSWORD)
-          env: 
-            $[ parameters['Env'] ]
+          # env: 
+          #   $[ parameters['Env'] ]
 
         
