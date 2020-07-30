@@ -2,11 +2,11 @@ parameters:
   - name: VariablesFile1
     type: string
     default: 'variables.yml'
-  
+
   - name: VariablesFile2
     type: string
     default: 'variables-root-dev.yml'
-  
+
   - name: CommandOptions
     type: string
     default: ''
@@ -18,15 +18,15 @@ parameters:
   - name: StageName
     type: string
     default: 'Stage1'
-  
+
   - name: StageCondition
     type: object
     default: succeeded()
-   
+
   - name: Env
     type: object
     default: {}
-  
+
 stages:
   - stage: ${{ parameters.StageName }}
     condition: ${{ parameters.StageCondition }}
@@ -47,14 +47,19 @@ stages:
         - checkout: none
 
         - task: printAllVariables@1
-      
+
         - script: |
             echo A: $(EventStore_YodaPassword)
+
+        - script: |
+            echo B: ${{ variables.EventStore_YodaPassword }}
+
+        - script: |
             echo C: $(TF_VAR_EVENTSTORE_YODA_PASSWORD)
-            echo B: ${{ variables.EventStore_YodaPassword }}        
+          env:
+            TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)
+
+        - script: |
             echo D: ${{ variables.TF_VAR_EVENTSTORE_YODA_PASSWORD }}
           env:
-            TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword) 
-            # $[ parameters['Env'] ]
-
-        
+            TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)
