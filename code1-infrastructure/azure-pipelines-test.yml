@@ -2,7 +2,7 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 
   
 variables:
-  - template: templates/variables.yml
+  - template: templates/variables.yml  
   
 stages:
   - template: templates/test-stage.yml

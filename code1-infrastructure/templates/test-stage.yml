@@ -50,8 +50,8 @@ stages:
       
         - script: |
             echo A: $(EventStore_YodaPassword)
-            echo B: ${{ variables.EventStore_YodaPassword }}        
             echo C: $(TF_VAR_EVENTSTORE_YODA_PASSWORD)
+            echo B: ${{ variables.EventStore_YodaPassword }}        
             echo D: ${{ variables.TF_VAR_EVENTSTORE_YODA_PASSWORD }}
           env:
             TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword) 
