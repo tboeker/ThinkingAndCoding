@@ -24,4 +24,15 @@ az pipelines create `
     --yaml-path code1-infrastructure/azure-pipelines-env.yml `
     --organization $org `
     --project $project `
-    --skip-first-run true    
+    --skip-first-run true
+
+
+    az pipelines create `
+    --name 'test' `
+    --repository $repository `
+    --branch master `
+    --repository-type github `
+    --yaml-path code1-infrastructure/azure-pipelines-test.yml `
+    --organization $org `
+    --project $project `
+    --skip-first-run true
