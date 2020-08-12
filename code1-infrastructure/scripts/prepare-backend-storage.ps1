@@ -31,7 +31,7 @@ az storage account create --resource-group $resourceGroupName `
 
 # get storage account key
 $storageAccountKey = $(az storage account keys list --resource-group $resourceGroupName --account-name $storageAccountName --query [0].value -o tsv)
-$storageAccountKey
+# $storageAccountKey
 
 # set storage account key to env
 $env:TF_BACKEND_STORAGE_ACCOUNT_KEY=$storageAccountKey
