@@ -12,6 +12,8 @@ trigger:
 
 variables:
   - template: templates/variables.yml
+  - name: TF_VAR_EVENTSTORE_YODA_PASSWORD
+    value: $(EventStore_YodaPassword)
   
 stages:
   - template: templates/init-stage.yml
@@ -25,5 +27,6 @@ stages:
       WorkingDirectory: dev
       VariablesFile1: variables.yml
       VariablesFile2: variables-dev.yml
-      Env: 
-        TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)
+      # CommandOptions: 
+      # Env: 
+      #   TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)

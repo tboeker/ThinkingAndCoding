@@ -1,5 +1,6 @@
 Push-Location -Path 'C:\repos\ThinkingAndCoding\code1-setup'
 
+Remove-Module -Name setup-util
 Import-Module .\setup-util.psm1 -Force
 
 # login and select subscription
