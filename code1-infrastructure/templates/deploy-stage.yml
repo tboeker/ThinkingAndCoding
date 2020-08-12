@@ -57,6 +57,7 @@ stages:
 
         - task: AzureCLI@2
           name: tf_storage
+          displayName: az cli storage backend
           inputs:
             azureSubscription: '${{ variables.ARM_SERVICE_CONNECTION }}'
             # azureSubscription: az-tb-thinking-and-coding-terraform-mvd-msdn
@@ -90,38 +91,44 @@ stages:
                   terraformVersion: '0.12.29'
 
               - task: TerraformTaskV1@0
+                displayName: terraform init
                 inputs:
                   provider: 'azurerm'
                   backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
                   backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
                   backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
                   backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
-                  backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
+                  backendAzureRmKey: 'terraform.tfstate'
+                  # backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
                   command: 'init'
                   commandOptions: '${{ parameters.CommandOptions }}'
 
               - task: TerraformTaskV1@0
+                displayName: terraform plan
                 inputs:
                   provider: 'azurerm'
                   backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
                   backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
                   backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
                   backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
-                  backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
+                  backendAzureRmKey: 'terraform.tfstate'
+                  # backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
                   command: 'plan'
                   commandOptions: '${{ parameters.CommandOptions }}'
                   environmentServiceNameAzureRM: '${{ variables.ARM_SERVICE_CONNECTION }}'
 
               - task: TerraformTaskV1@0
+                displayName: terraform apply
                 inputs:
                   provider: 'azurerm'
                   backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
                   backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
                   backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
                   backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
-                  backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
+                  backendAzureRmKey: 'terraform.tfstate'
+                  # backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
                   workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
                   command: 'apply'
                   commandOptions: '${{ parameters.CommandOptions }}'
