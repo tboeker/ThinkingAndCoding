@@ -53,7 +53,7 @@ stages:
             artifact: drop
             path: $(Pipeline.Workspace)/drop
 
-        - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
+        # - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
 
         - task: AzureCLI@2
           name: tf_storage
@@ -119,18 +119,18 @@ stages:
                   commandOptions: '${{ parameters.CommandOptions }}'
                   environmentServiceNameAzureRM: '${{ variables.ARM_SERVICE_CONNECTION }}'
 
-              - task: TerraformTaskV1@0
-                displayName: terraform apply
-                inputs:
-                  provider: 'azurerm'
-                  # backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
-                  # backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
-                  # backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
-                  # backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
-                  # backendAzureRmKey: 'terraform.tfstate'
-                  # backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
-                  workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
-                  command: 'apply'
-                  commandOptions: '${{ parameters.CommandOptions }}'
-                  environmentServiceNameAzureRM: '${{ variables.ARM_SERVICE_CONNECTION }}'                  
+              # - task: TerraformTaskV1@0
+              #   displayName: terraform apply
+              #   inputs:
+              #     provider: 'azurerm'
+              #     # backendServiceArm: '${{ variables.TF_BACKEND_SERVICE_CONNECTION }}'
+              #     # backendAzureRmResourceGroupName: $(TF_BACKEND_RESOURCE_GROUP_NAME)
+              #     # backendAzureRmStorageAccountName: $(TF_BACKEND_STORAGE_ACCOUNT_NAME)
+              #     # backendAzureRmContainerName: $(TF_BACKEND_STORAGE_CONTAINER_NAME)
+              #     # backendAzureRmKey: 'terraform.tfstate'
+              #     # backendAzureRmKey: $(TF_BACKEND_STORAGE_ACCOUNT_KEY)
+              #     workingDirectory: $(Pipeline.Workspace)/drop/tf/${{ parameters.WorkingDirectory }}
+              #     command: 'apply'
+              #     commandOptions: '${{ parameters.CommandOptions }}'
+              #     environmentServiceNameAzureRM: '${{ variables.ARM_SERVICE_CONNECTION }}'                  
              
