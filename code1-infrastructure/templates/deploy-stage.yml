@@ -53,14 +53,11 @@ stages:
             artifact: drop
             path: $(Pipeline.Workspace)/drop
 
-        # - script: echo '${{ variables.ARM_SERVICE_CONNECTION }}' $(ARM_SERVICE_CONNECTION)
-
         - task: AzureCLI@2
           name: tf_storage
           displayName: az cli storage backend
           inputs:
             azureSubscription: '${{ variables.ARM_SERVICE_CONNECTION }}'
-            # azureSubscription: az-tb-thinking-and-coding-terraform-mvd-msdn
             scriptType: pscore
             workingDirectory: $(Pipeline.Workspace)/drop/scripts/
             scriptPath: $(Pipeline.Workspace)/drop/scripts/prepare-backend-storage.ps1
