@@ -64,10 +64,19 @@ stages:
           env:
             TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword)
 
+
+        - script: |
+            echo A2: $(EventStore_YodaPassword2)
+
+        - script: |
+            echo C2: $TF_VAR_EVENTSTORE_YODA_PASSWORD
+          env:
+            TF_VAR_EVENTSTORE_YODA_PASSWORD: $(EventStore_YodaPassword2)
+
+
         # geht nicht, weil das aus group kommt
         # - script: | 
         #     echo B: ${{ variables.EventStore_YodaPassword }}
-
 
         # - script: |
         #     echo D: ${{ variables.TF_VAR_EVENTSTORE_YODA_PASSWORD }}

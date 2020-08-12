@@ -205,7 +205,7 @@ function createEnvVariableGroup() {
 }
 
 function saveVarInGroup() {
-    param($org, $project, $groupId, $name, $value)
+    param($org, $project, $groupId, $name, $value, $secret = 'false')
 
     $tmp = (az pipelines variable-group variable list --group-id $groupId --organization $org --project $project)
     Write-Host $tmp
@@ -219,7 +219,8 @@ function saveVarInGroup() {
     # $isnull ??= $true
     Write-Host $a ?? "Is null? True!"
     Write-Host "Isnull: $isnull"
-
+    
+  
     # if ($isnull) {
 
         $tmp = az pipelines variable-group variable update `
@@ -227,7 +228,8 @@ function saveVarInGroup() {
         --name $name `
         --value `"$value`" `
         --organization $org `
-        --project $project
+        --project $project `
+        --secret $secret
 
         Write-Host $tmp
 
@@ -238,7 +240,8 @@ function saveVarInGroup() {
         --name $name `
         --value `"$value`" `
         --organization $org `
-        --project $project
+        --project $project `
+        --secret $secret
 
         Write-Host $tmp
 

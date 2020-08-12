@@ -21,6 +21,9 @@ $eventStoreYodaPassword = 'Password02'
 $vname = 'EventStore_YodaPassword'
 saveVarInGroup -org $org -project $project -groupId $groupId -name $vname -value $eventStoreYodaPassword
 
+$vname = 'EventStore_YodaPassword2'
+saveVarInGroup -org $org -project $project -groupId $groupId -name $vname -value $eventStoreYodaPassword -secret 'true'
+
 
 
 
