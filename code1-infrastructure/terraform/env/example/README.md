@@ -8,6 +8,11 @@ az account set --subscription 'mvd-msdn'
 # setting env vars
 $env:TF_VAR_EVENTSTORE_YODA_PASSWORD='Password01'
 
+$env:TF_BACKEND_RESOURCE_GROUP_NAME=''
+
+$env:TF_BACKEND_STORAGE_ACCOUNT_NAME=''
+$env:TF_BACKEND_STORAGE_CONTAINER_NAME=''
+
 
 # deploy resources
 terraform get

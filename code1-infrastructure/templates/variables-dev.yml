@@ -6,6 +6,7 @@ variables:
 
   - name: ARM_SERVICE_CONNECTION
     value: az-tb-thinking-and-coding-mvd-msdn
+  
   - name: TF_BACKEND_SERVICE_CONNECTION
     value: az-tb-thinking-and-coding-mvd-msdn
   - name: TF_BACKEND_RESOURCE_GROUP_NAME

@@ -33,6 +33,10 @@ az storage account create --resource-group $resourceGroupName `
 $storageAccountKey = $(az storage account keys list --resource-group $resourceGroupName --account-name $storageAccountName --query [0].value -o tsv)
 $storageAccountKey
 
+# set storage account key to env
+$env:TF_BACKEND_STORAGE_ACCOUNT_KEY=$storageAccountKey
+$env:ARM_ACCESS_KEY=$storageAccountKey
+
 # create variable
 Write-Host "##vso[task.setvariable variable=BACKEND_STORAGE_ACCOUNT_KEY;isOutput=true]$storageAccountKey"
 

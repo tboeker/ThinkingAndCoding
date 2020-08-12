@@ -3,6 +3,14 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+  backend "azurerm" {   
+    storage_account_name = var.BACKEND_STORAGE_ACCOUNT_NAME
+    container_name       = var.BACKEND_STORAGE_CONTAINER_NAME
+    key                  = "terraform.tfstate"
+  }
+}
+
 module "shared" {
   source = "../modules/env-shared"
 
@@ -12,19 +20,19 @@ module "shared" {
 }
 
 
-module "eventstore" {
-  source = "../modules/env-eventstore"
+# module "eventstore" {
+#   source = "../modules/env-eventstore"
 
-  appname = "tb-code1"
-  appshort = "tbcode1"
-  envshort = "example"
+#   appname = "tb-code1"
+#   appshort = "tbcode1"
+#   envshort = "example"
 
-  yoda_password = var.EVENTSTORE_YODA_PASSWORD
+#   yoda_password = var.EVENTSTORE_YODA_PASSWORD
   
-  keyvault_id               = module.shared.keyvault_id
-  vnet_id                   = module.shared.vnet_id
-  vnet_name                 = module.shared.vnet_name
-  vnet_resource_group_name  = module.shared.vnet_resource_group_name
+#   keyvault_id               = module.shared.keyvault_id
+#   vnet_id                   = module.shared.vnet_id
+#   vnet_name                 = module.shared.vnet_name
+#   vnet_resource_group_name  = module.shared.vnet_resource_group_name
 
-  location      = module.shared.location
-}
+#   location      = module.shared.location
+# }
